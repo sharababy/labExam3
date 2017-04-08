@@ -7,13 +7,10 @@
 using namespace std;
 
 #define ITERATIONS 10
-#define SIZE 30
+#define SIZE 100
 #define MAX_VAL 2
 #define MAX_GEN_VAL 10000
 
-int actual_random_value(float _probability);
-int generated_random_value(float _probability);
-void get_actual_random_value(float _probability);
 void find_binomial_dist(float _probability);
 long long C(int n, int r);
 int show_dots(float pmf);
@@ -38,57 +35,11 @@ int main(int argc, char const *argv[])
 
 	cin>>probability;
 
-
-	//get_actual_random_value(probability);
 	find_binomial_dist(probability);
 
 	return 0;
 }
 
-
-int actual_random_value(float _probability){
-
-	int array[SIZE];
-	int random_value = 0;
-	int threshold_p = MAX_GEN_VAL * _probability;
-
-	for (int i = 0; i < SIZE; ++i)
-	{
-			array[i] = ((rand() % MAX_GEN_VAL) > threshold_p) ? 1 : 0;
-			random_value += array[i];
-	}
-
-	return random_value;
-
-}
-
-void get_actual_random_value(float _probability){
-	
-	int random_value =0;
-	float average_of_random_value;
-	int sum_of_random_value = 0;
-	float sum_of_probability=0;
-
-	for (int i = 0; i < ITERATIONS; ++i)
-	{	
-		random_value = actual_random_value(_probability);
-		probability = (float)random_value/SIZE;
-		sum_of_random_value += random_value;
-		sum_of_probability += probability;
-
-		cout<<"\nActual Random Variable :"<<random_value;
-		cout<<" P: "<<probability;		
-
-	}
-
-	avg_probability = (float)sum_of_probability/ITERATIONS;
-	average_of_random_value = (float)sum_of_random_value/ITERATIONS;
-
-	cout<<"\n\nAverage Probability: "<<avg_probability;
-	cout<<"\nAverage of all Random Variables: "<<average_of_random_value<<endl;
-
-
-}
 
 int generated_random_value(float _probability){
 
@@ -161,13 +112,13 @@ int show_dots(float pmf){
 
 	int no_of_dots;
 
-	no_of_dots = pmf * 200;
+	no_of_dots = pmf * 250;
 
-	for (int i = 0; i < no_of_dots; ++i)
+	/*for (int i = 0; i < no_of_dots; ++i)
 	{
 		cout<<"+";
-	}
-
+	}*/
+	
 	cout<<endl;
 
 
@@ -179,9 +130,9 @@ void find_max_1_2_3(int no_of_occurence[]){
 	int max = no_of_occurence[0];
 	int index_of_max;
 
-	cout<<"\nMost Probable Random Variables: ";
+	cout<<"\nTop 10 Probable Random Variables: ";
 
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < 10; ++i)
 	{
 		max = 0;
 		for (int i = 0; i < SIZE; ++i)
